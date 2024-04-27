@@ -1,0 +1,268 @@
+create table SEMP(
+EMPNO INT(4),
+EMPNAME CHAR(20),
+BASIC FLOAT,
+DEPTNO CHAR(2),
+DEPTHEAD CHAR(4)
+);
+
+create table SDEPT(
+DEPTNO CHAR(2),
+DEPTNAME CHAR(15)
+);
+
+insert into SDEPT (DEPTNO, DEPTNAME) values
+(10, 'Development'),
+(20, 'Training');
+
+
+
+INSERT INTO SEMP (EMPNO, EMPNAME, BASIC, DEPTNO, DEPTHEAD)
+VALUES 
+('0001', 'SUNIL', 6000, 10, NULL),
+('0002', 'HIREN', 8000, 20, NULL),
+('0003', 'ALI', 4000, 10, '0001'),
+('0004', 'GEORGE', 6000, NULL, '0002');
+
+
+------------------------------------------------------------------------------------------
+
+create table S(
+`s#` char(10),
+Sname varchar(20),
+Status int,
+City varchar(20));
+
+create table P(
+`p#` char(10),
+Pname varchar(20),
+Color varchar(20),
+Weight float,
+City varchar(20));
+
+create table J(
+`J#` char(10),
+Jname varchar(20),
+City varchar(20));
+
+
+create table SPJ(
+`S#` char(10),
+`P#` char(10),
+`J#` char(10),
+Qty int);
+
+
+insert into s (`s#`,Sname,Status,City) 
+values
+('s1','siddhant',10,'London'),
+('s2','shreya',20,'Paris'),
+('s3','suman',30,'Athens');
+
+insert into P (`p#`,Pname,Color,Weight,City)
+values
+('p1','jig','white',12,'tokyo'),
+('p2','fixture','black',14,'dubai'),
+('p3','bush','grey',16,'texas');
+
+insert into j (`j#`,Jname,City)
+values
+('j1','gold','London'),
+('j2','silver','Paris'),
+('j3','diamond','Athens');
+
+insert into spj(`S#`,`P#`,`J#`,Qty)
+values
+('S1','P1','J1',10),
+('S2','P2','J2',20),
+('S3','P3','J3',30);
+
+mysql> select * from p;
++------+---------+-------+--------+-------+
+| p#   | Pname   | Color | Weight | City  |
++------+---------+-------+--------+-------+
+| p1   | jig     | white |     12 | tokyo |
+| p2   | fixture | black |     14 | dubai |
+| p3   | bush    | grey  |     16 | texas |
++------+---------+-------+--------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select 8 from s;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
++---+
+3 rows in set (0.01 sec)
+
+mysql> select * from s;
++------+----------+--------+--------+
+| s#   | Sname    | Status | City   |
++------+----------+--------+--------+
+| s1   | siddhant |     10 | London |
+| s2   | shreya   |     20 | Paris  |
+| s3   | suman    |     30 | Athens |
++------+----------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from spj;
+Empty set (0.01 sec)
+
+mysql> insert into j ('j#`,Jname,City)
+    '> values
+    '> ('j1','gold','London'),
+    '> ('j2','silver','Paris'),
+    '> ('j3','diamond','Athens');
+    '> ^C
+mysql> insert into j (`j#`,Jname,City)
+    -> values
+    -> ('j1','gold','London'),
+    -> ('j2','silver','Paris'),
+    -> ('j3','diamond','Athens');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into spj(`S#`,`P#`,`J#`,Qty)
+    -> values
+    -> ('S1','P1','J1',10),
+    -> ('S2','P2','J2',20),
+    -> ('S3','P3','J3',30);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from s;
++------+----------+--------+--------+
+| s#   | Sname    | Status | City   |
++------+----------+--------+--------+
+| s1   | siddhant |     10 | London |
+| s2   | shreya   |     20 | Paris  |
+| s3   | suman    |     30 | Athens |
++------+----------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select `s#`,Sname from s;
++------+----------+
+| s#   | Sname    |
++------+----------+
+| s1   | siddhant |
+| s2   | shreya   |
+| s3   | suman    |
++------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from p;
++------+---------+-------+--------+-------+
+| p#   | Pname   | Color | Weight | City  |
++------+---------+-------+--------+-------+
+| p1   | jig     | white |     12 | tokyo |
+| p2   | fixture | black |     14 | dubai |
+| p3   | bush    | grey  |     16 | texas |
++------+---------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select Pname,Color from p where city =tokyo;
+ERROR 1054 (42S22): Unknown column 'tokyo' in 'where clause'
+mysql> select Pname,Color from p where City ='tokyo';
++-------+-------+
+| Pname | Color |
++-------+-------+
+| jig   | white |
++-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select Sname from s where city='London';
++----------+
+| Sname    |
++----------+
+| siddhant |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select Sname from s where city='Paris' or city='Athens';
++--------+
+| Sname  |
++--------+
+| shreya |
+| suman  |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select Jname from j where city='Athens';
++---------+
+| Jname   |
++---------+
+| diamond |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select Pname from p where Weight between 12 and 14;
++---------+
+| Pname   |
++---------+
+| jig     |
+| fixture |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select Sname from s where Status >=20;
++--------+
+| Sname  |
++--------+
+| shreya |
+| suman  |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select Sname from s except city='London';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city='London'' at line 1
+mysql> select Sname from s except City='London';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'City='London'' at line 1
+mysql> select Sname from s <>City='London';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<>City='London'' at line 1
+mysql> select Sname from s where City<>'London';
++--------+
+| Sname  |
++--------+
+| shreya |
+| suman  |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct City from s;
++--------+
+| City   |
++--------+
+| London |
+| Paris  |
+| Athens |
++--------+
+3 rows in set (0.01 sec)
+
+mysql> select City from s;
++--------+
+| City   |
++--------+
+| London |
+| Paris  |
+| Athens |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select Pname,
+    -> Weight as Grams,
+    -> Weight*1000 as Milligrams,
+    -> Weight/1000 as Killogram
+    -> from p;
++---------+-------+------------+-----------+
+| Pname   | Grams | Milligrams | Killogram |
++---------+-------+------------+-----------+
+| jig     |    12 |      12000 |     0.012 |
+| fixture |    14 |      14000 |     0.014 |
+| bush    |    16 |      16000 |     0.016 |
++---------+-------+------------+-----------+
+3 rows in set (0.00 sec)
+
+
+
