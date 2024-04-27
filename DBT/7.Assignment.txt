@@ -1,0 +1,69 @@
+Assignment –7
+Summarizing Data with Aggregate Functions.
+
+1) Write a query that counts all orders for October 3.
+select count(Onum)
+    -> from orders
+    -> where Odate like '1990-10-03%';
++-------------+
+| count(Onum) |
++-------------+
+|           5 |
++-------------+
+
+2) Write a query that counts the number of different non-NULL city values in the Customers table.
+
+mysql> select count(Cnum) NO_OF_CITIES from customers where City is not null;
++--------------+
+| NO_OF_CITIES |
++--------------+
+|            7 |
++--------------+
+
+3) Write a query that selects each customer’s smallest order.
+ select min(Amt) "smallest order",Cnum
+    -> from orders
+    -> group by Cnum;
++----------------+------+
+| smallest order | Cnum |
++----------------+------+
+|          18.69 | 2008 |
+|         767.19 | 2001 |
+|        1900.10 | 2007 |
+|        5160.45 | 2003 |
+|        1713.23 | 2002 |
+|          75.75 | 2004 |
+|        4723.00 | 2006 |
++----------------+------+
+
+4) Write a query that selects the first customer, in alphabetical order, whose name
+begins with G.
+
+ select * from customers
+    -> where name like 'G%'
+    -> order by name;
++------+----------+--------+--------+------+
+| Cnum | name     | City   | Rating | Snum |
++------+----------+--------+--------+------+
+| 2002 | Giovanni | Rome   |    200 | 1003 |
+| 2004 | Grass    | Berlin |    300 | 1002 |
++------+----------+--------+--------+------+
+
+5) Write a query that selects the highest rating in each city.
+mysql> select max(rating) "maxx" from customers;
++------+
+| maxx |
++------+
+|  300 |
++------+
+
+6) Write a query that counts the number of salespeople registering orders for each day. (If a salesperson has more than one order on a given day, he or she should be counted only once.)
+select count(Odate) from orders group by Odate;
++--------------+
+| count(Odate) |
++--------------+
+|            5 |
+|            2 |
+|            1 |
+|            2 |
++--------------+
